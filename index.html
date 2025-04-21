@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cumple Mes</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to bottom, #ffd6e0, #fff5f7);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .contenido {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      animation: sorpresa 1s ease-out forwards;
+    }
+    @keyframes sorpresa {
+      0% {
+        transform: scale(0.1);
+        opacity: 0;
+      }
+      70% {
+        transform: scale(1.2);
+        opacity: 1;
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+    h1 {
+      font-size: 3rem;
+      color: #ff4081;
+      margin-bottom: 0.5rem;
+    }
+    h2 {
+      font-size: 1.8rem;
+      color: #ff4081;
+      margin-bottom: 1rem;
+    }
+    h3 {
+      font-size: 1.5rem;
+      color: #ff4081;
+    }
+    .numero {
+      position: relative;
+      display: inline-block;
+      font-size: 5rem;
+      font-weight: bold;
+      color: #ff1744;
+    }
+    .velita {
+      position: absolute;
+      top: -40px;
+      left: 40%;
+      width: 10px;
+      height: 40px;
+      background: #fff;
+      border-radius: 2px;
+    }
+    .flama {
+      position: absolute;
+      top: -15px;
+      left: 50%;
+      width: 10px;
+      height: 15px;
+      background: radial-gradient(circle, gold, orange);
+      border-radius: 50% 50% 50% 50%;
+      transform: translateX(-50%);
+      animation: flame 0.8s infinite ease-in-out;
+    }
+    @keyframes flame {
+      0% { transform: translateX(-50%) scaleY(1); }
+      50% { transform: translateX(-50%) scaleY(1.2); }
+      100% { transform: translateX(-50%) scaleY(1); }
+    }
+    .fuegos {
+      position: absolute;
+      bottom: 30px;
+      display: flex;
+      gap: 2rem;
+    }
+    .fuego {
+      width: 20px;
+      height: 20px;
+      background-color: #ffeb3b;
+      border-radius: 50%;
+      animation: estallar 1.5s infinite ease-in-out;
+    }
+    .fuego:nth-child(2) {
+      background-color: #4caf50;
+      animation-delay: 0.3s;
+    }
+    .fuego:nth-child(3) {
+      background-color: #2196f3;
+      animation-delay: 0.6s;
+    }
+    @keyframes estallar {
+      0% { transform: scale(0.5) translateY(0); opacity: 1; }
+      50% { transform: scale(1.5) translateY(-60px); opacity: 0.7; }
+      100% { transform: scale(0.5) translateY(0); opacity: 1; }
+    }
+    button {
+      padding: 1rem 2rem;
+      font-size: 30px;
+      background-color: #ff4081;
+      color: white;
+      border: none;
+      border-radius: 1rem;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      transition: transform 0.2s;
+    }
+    button:hover {
+      transform: scale(1.05);
+    }
+    #contador {
+      font-size: 30px;
+      margin: 1rem 0;
+      color: #d81b60;
+    }
+    @media (max-width: 600px) {
+      h1 { font-size: 2rem; }
+      h2 { font-size: 1.2rem; }
+      h3 { font-size: 1rem; }
+      .numero { font-size: 3rem; }
+      .fuego { width: 15px; height: 15px; }
+    }
+  </style>
+</head>
+<body>
+  <button onclick="incrementarContador()">Presióname</button>
+  <div id="contador">0</div>
+
+  <div class="contenido" id="contenido">
+    <h1>Feliz <span class="numero">9
+      <div class="velita">
+        <div class="flama"></div>
+      </div>
+    </span> Meses</h1>
+    <h2>Mi amorcito lindo</h2>
+    <h3>Te amo ❤️</h3>
+    <div class="fuegos">
+      <div class="fuego"></div>
+      <div class="fuego"></div>
+      <div class="fuego"></div>
+    </div>
+  </div>
+
+  <audio id="sonidoBoton">
+    <source src="boing.mp3" type="audio/mpeg">
+  </audio>
+  <audio id="sonidoSorpresa">
+    <source src="nuevo.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    let contador = 0;
+    function incrementarContador() {
+      const sonidoBoton = document.getElementById('sonidoBoton');
+      sonidoBoton.currentTime = 0;
+      sonidoBoton.play();
+
+      contador++;
+      document.getElementById('contador').textContent = contador;
+
+      if (contador >= 9) {
+        document.querySelector('button').style.display = 'none';
+        document.getElementById('contador').style.display = 'none';
+        document.getElementById('contenido').style.display = 'flex';
+
+        const sonidoSorpresa = document.getElementById('sonidoSorpresa');
+        sonidoSorpresa.play();
+      }
+    }
+  </script>
+</body>
+</html>
